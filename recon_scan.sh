@@ -21,7 +21,7 @@ echo "[*] Running quick Nmap scan on all ports..."
 nmap_output=$(nmap -p- -Pn -T5 -v $target)
 
 # Ports of interest
-ports_to_check=(3389 22 23 445 80 8080 21 25)
+ports_to_check=(3389 3306 22 23 445 80 8080 21 25)
 open_ports=()
 
 # Extract open ports from the scan
