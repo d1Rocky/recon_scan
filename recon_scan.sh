@@ -26,3 +26,18 @@ for port in "${ports_to_check[@]}"; do
         open_ports+=("$port")
     fi
 done
+
+if [ ${#open_ports[@]} -gt 0 ]; then
+    ports_csv=$(IFS=, ; echo "${open_ports[*]}")
+    echo "[*] Found open ports: $ports_csv"
+    echo "[*] Running detailed Nmap scan..."
+
+    timestamp=$(date +%Y%m%d_%H%M%S)
+    output_file="recon${timestamp}.txt"
+
+    nmap -p "$ports_csv" -A -Pn -v "$target" > "$output_file"
+
+    echo "[✔] Scan complete. Report saved as $output_file"
+else
+    echo "[!] No target ports found open. Skipping detailed scan."
+fi
